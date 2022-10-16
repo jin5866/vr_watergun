@@ -341,7 +341,7 @@ MonoBehaviour:
   AdditionalData0: {x: 0, y: 0, z: 0, w: 90}
   AdditionalData1: {x: 0, y: 0, z: 0, w: 0}
   ParticlesPerSecOld: 0
-  VolumePerSimTime: 0.125
+  VolumePerSimTime: 0.15
   VelocityMagnitudeOld: 0
   CustomEmitterTransformOld: {fileID: 0}
   InitialVelocity: {x: 0, y: 0, z: 90}
@@ -528,7 +528,7 @@ MonoBehaviour:
   solverParameters: {fileID: 977607414}
   materialParameters: {fileID: 977607415}
   renderingParameters: {fileID: 977607413}
-  containerSize: {x: 10, y: 10, z: 10}
+  containerSize: {x: 10, y: 30, z: 30}
   containerPos: {x: 0, y: 0, z: 0}
   fluidInitialVelocity: {x: 0, y: 0, z: 0}
   manipulatorManager: {fileID: 977607412}
