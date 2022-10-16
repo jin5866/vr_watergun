@@ -17,6 +17,11 @@ public class jetpack : MonoBehaviour
     private SteamVR_Action_Boolean LeftHovering = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Hovering");
 
     private float maxAcc = 20f;
+    private float normalmodeAcc = 9.8f;
+
+    private float acc = 9.8f;
+    private float deltaAccPerSecond = 3.0f;
+    private float deltaAccPerSecondOnReturnToNormal = 5.0f;
 
 
     private Vector3 reveseGravity = Vector3.up * 9.8f;
@@ -38,7 +43,7 @@ public class jetpack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 updir = player.hmdTransform.up;
+        Vector3 updir = player.hmdTransform.up.normalized;
 
         //Input
         //TODO: move to other class
@@ -51,21 +56,43 @@ public class jetpack : MonoBehaviour
         float upaxis = leftjoystickinput.y;
 
         
-
-        if (_hovering)
+        if(Mathf.Abs(upaxis) >= 0.05)
         {
-            Vector3 vel = rigidbody.velocity;
-
-            Vector3 accToZero = vel.normalized  * breakAccToZero * (-1);
-            //Debug.Log(vel);
-
-            rigidbody.AddForce(reveseGravity + accToZero,ForceMode.Acceleration);
+            // change acc
+            acc += deltaAccPerSecond * Time.deltaTime * upaxis;
+            acc = Mathf.Clamp(acc, 0, maxAcc);
         }
         else
         {
-            rigidbody.AddForce(updir * upaxis * maxAcc , ForceMode.Acceleration);
+            //return to noraml mode
+            if(acc > normalmodeAcc)
+            {
+                acc -= deltaAccPerSecondOnReturnToNormal * Time.deltaTime;
+            }
+            else
+            {
+                acc += deltaAccPerSecondOnReturnToNormal * Time.deltaTime;
+            }
+
+            velReturnToZero(0.2f);
+        }
+        Debug.Log(acc);
+        if (_hovering)
+        {
+            velReturnToZero();
+        }
+        else
+        {
+            rigidbody.AddForce(updir * acc , ForceMode.Acceleration);
         }
         
+    }
+
+    private void velReturnToZero(float reveseAccWeight = 1.0f)
+    {
+        Vector3 vel = rigidbody.velocity;
+        Vector3 accToZero = vel.normalized * breakAccToZero * (-1) * reveseAccWeight;
+        rigidbody.AddForce(accToZero, ForceMode.Acceleration);
     }
 
     public bool Hovering { 
