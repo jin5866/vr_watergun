@@ -31,6 +31,12 @@ public class jetpack : MonoBehaviour
     private Vector3 reveseGravity = Vector3.up * 9.8f;
     [SerializeField]
     private float breakAccToZero = 10f;
+    [SerializeField]
+    private float powerDownAltitude = 50;
+    [SerializeField]
+    private float powerDownRate = 2.0f;
+
+
 
     private float accOfBooster = 9.8f;
 
@@ -94,6 +100,12 @@ public class jetpack : MonoBehaviour
         }
         //Debug.Log(acc);
         accOnThisUpdate += updir * accOfBooster;
+
+        if (powerDownAltitude < transform.position.y)
+        {
+            float powerDown = Mathf.Clamp((transform.position.y - powerDownAltitude) * powerDownRate, 0, 100);
+            accOnThisUpdate *= ((100f - powerDown) / 100f);
+        }
 
 
 
