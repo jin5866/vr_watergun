@@ -13,10 +13,17 @@ public class jetpack : MonoBehaviour
     private Rigidbody rigidbody;
 
     //[StreamVR_DefaultAction("LeftJoystick", "default")]
-    public SteamVR_Action_Vector2 leftjoystick = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("LeftJoystick");
+    private SteamVR_Action_Vector2 leftjoystick = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("LeftJoystick");
+    private SteamVR_Action_Boolean LeftHovering = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Hovering");
 
-    private Vector3 accel = Vector3.zero;
-    private Vector3 velocity = Vector3.zero;
+    private float maxAcc = 20f;
+
+
+    private Vector3 reveseGravity = Vector3.up * 9.8f;
+    [SerializeField]
+    private float breakAccToZero = 10f;
+
+    private bool _hovering = false;
 
     void Start()
     {
@@ -24,6 +31,8 @@ public class jetpack : MonoBehaviour
         //leftjoystick = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("LeftJoystick");
         rigidbody = GetComponent<Rigidbody>();
         Debug.Log(GetComponent<Rigidbody>());
+
+        
     }
 
     // Update is called once per frame
@@ -31,20 +40,38 @@ public class jetpack : MonoBehaviour
     {
         Vector3 updir = player.hmdTransform.up;
 
+        //Input
+        //TODO: move to other class
         Vector2 leftjoystickinput = leftjoystick.GetAxis(SteamVR_Input_Sources.Any);
+        Hovering = LeftHovering.GetState(SteamVR_Input_Sources.Any);
 
         //Debug.Log(leftjoystickinput);
         //Debug.Log(updir);
 
         float upaxis = leftjoystickinput.y;
 
-        rigidbody.AddForce(updir * upaxis * 20);
-        
         
 
-        //player.transform.position += updir * upaxis * 10f;
+        if (_hovering)
+        {
+            Vector3 vel = rigidbody.velocity;
 
-        //if(SteamVR_Input._de)
+            Vector3 accToZero = vel.normalized  * breakAccToZero * (-1);
+            //Debug.Log(vel);
+
+            rigidbody.AddForce(reveseGravity + accToZero,ForceMode.Acceleration);
+        }
+        else
+        {
+            rigidbody.AddForce(updir * upaxis * maxAcc , ForceMode.Acceleration);
+        }
         
+    }
+
+    public bool Hovering { 
+        set
+        {
+            _hovering = value;
+        }
     }
 }
