@@ -16,17 +16,23 @@ public class jetpack : MonoBehaviour
     private SteamVR_Action_Vector2 leftjoystick = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("LeftJoystick");
     private SteamVR_Action_Boolean LeftHovering = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Hovering");
 
+    [SerializeField]
     private float maxAcc = 20f;
+    [SerializeField]
     private float normalmodeAcc = 9.8f;
-
-    private float acc = 9.8f;
+    
+    
+    [SerializeField]
     private float deltaAccPerSecond = 3.0f;
+    [SerializeField]
     private float deltaAccPerSecondOnReturnToNormal = 5.0f;
 
 
     private Vector3 reveseGravity = Vector3.up * 9.8f;
     [SerializeField]
     private float breakAccToZero = 10f;
+
+    private float accOfBooster = 9.8f;
 
     private bool _hovering = false;
 
@@ -37,13 +43,14 @@ public class jetpack : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         Debug.Log(GetComponent<Rigidbody>());
 
-        
+        accOfBooster = normalmodeAcc;
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 updir = player.hmdTransform.up.normalized;
+        Vector3 accOnThisUpdate = Vector3.zero;
 
         //Input
         //TODO: move to other class
@@ -59,40 +66,52 @@ public class jetpack : MonoBehaviour
         if(Mathf.Abs(upaxis) >= 0.05)
         {
             // change acc
-            acc += deltaAccPerSecond * Time.deltaTime * upaxis;
-            acc = Mathf.Clamp(acc, 0, maxAcc);
+            accOfBooster += deltaAccPerSecond * Time.deltaTime * upaxis;
+            accOfBooster = Mathf.Clamp(accOfBooster, 0, maxAcc);
         }
-        else
-        {
+        else { 
+
             //return to noraml mode
-            if(acc > normalmodeAcc)
+            if(accOfBooster > normalmodeAcc)
             {
-                acc -= deltaAccPerSecondOnReturnToNormal * Time.deltaTime;
+                accOfBooster -= deltaAccPerSecondOnReturnToNormal * Time.deltaTime;
             }
             else
             {
-                acc += deltaAccPerSecondOnReturnToNormal * Time.deltaTime;
+                accOfBooster += deltaAccPerSecondOnReturnToNormal * Time.deltaTime;
             }
 
-            velReturnToZero(0.2f);
+            //break
+            if (_hovering)
+            {
+                accOnThisUpdate += GetAccVelReturnToZero();
+            }
+            else
+            {
+                accOnThisUpdate += GetAccVelReturnToZero(0.2f);
+            }
+            
         }
-        Debug.Log(acc);
-        if (_hovering)
-        {
-            velReturnToZero();
-        }
-        else
-        {
-            rigidbody.AddForce(updir * acc , ForceMode.Acceleration);
-        }
+        //Debug.Log(acc);
+        accOnThisUpdate += updir * accOfBooster;
+
+
+
+        rigidbody.AddForce(accOnThisUpdate, ForceMode.Acceleration);
+        
         
     }
 
-    private void velReturnToZero(float reveseAccWeight = 1.0f)
+    private Vector3 GetAccVelReturnToZero(float reveseAccWeight = 1.0f)
     {
         Vector3 vel = rigidbody.velocity;
-        Vector3 accToZero = vel.normalized * breakAccToZero * (-1) * reveseAccWeight;
-        rigidbody.AddForce(accToZero, ForceMode.Acceleration);
+        Vector3 accToZero = (-1) * breakAccToZero * reveseAccWeight * vel.normalized;
+        return accToZero;
+    }
+    private void velReturnToZero(float reveseAccWeight = 1.0f)
+    {
+        
+        rigidbody.AddForce(GetAccVelReturnToZero(reveseAccWeight), ForceMode.Acceleration);
     }
 
     public bool Hovering { 
