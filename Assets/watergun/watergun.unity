@@ -320,6 +320,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zibraLiquid: {fileID: 977607417}
+  zibraLiquidEmitter: {fileID: 959462413}
+  liquidPower: 0.15
+  verbose: 1
 --- !u!1 &922614414
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +433,7 @@ GameObject:
   - component: {fileID: 959462411}
   - component: {fileID: 959462412}
   m_Layer: 0
-  m_Name: ZibraLiquid Emitter 1
+  m_Name: ZibraLiquid Emitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,7 +456,7 @@ MonoBehaviour:
   AdditionalData0: {x: 0, y: 0, z: 0, w: 90}
   AdditionalData1: {x: 0, y: 0, z: 0, w: 0}
   ParticlesPerSecOld: 0
-  VolumePerSimTime: 0.15
+  VolumePerSimTime: 0
   VelocityMagnitudeOld: 0
   CustomEmitterTransformOld: {fileID: 0}
   InitialVelocity: {x: 0, y: 0, z: 90}
@@ -503,7 +506,7 @@ GameObject:
   - component: {fileID: 977607413}
   - component: {fileID: 977607412}
   m_Layer: 0
-  m_Name: Zibra Liquid 1
+  m_Name: Zibra Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -644,7 +647,8 @@ MonoBehaviour:
   containerPos: {x: 0, y: 0, z: 0}
   fluidInitialVelocity: {x: 0, y: 0, z: 0}
   manipulatorManager: {fileID: 977607412}
-  sdfColliders: []
+  sdfColliders:
+  - {fileID: 1069114096}
   manipulators:
   - {fileID: 959462411}
   avgFrameRate: 0
@@ -660,7 +664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977607411}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -694,8 +698,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069114094}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.53123474, y: -0.23000011, z: -6.5200005}
-  m_LocalScale: {x: 0.3, y: 0.30000004, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922614418}
@@ -730,7 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e1948b31becfb4a9cc7647516c70e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenSDFType: 0
+  chosenSDFType: 1
   InvertSDF: 0
   SurfaceDistance: 0
 --- !u!1 &1261927419
