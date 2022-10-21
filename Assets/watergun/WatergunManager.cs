@@ -28,7 +28,7 @@ public class WatergunManager : MonoBehaviour
         }
         liquidEmitter = zibraLiquidEmitter.GetComponent<ZibraLiquidEmitter>();
         if (!liquidEmitter)
-            Debug.LogError("Initialize Failed on WatergunManeger:23");
+            Debug.LogError("Initialize Failed on WatergunManeger:29");
     }
 
     // Update is called once per frame
