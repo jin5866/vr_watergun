@@ -8,11 +8,14 @@ public class WatergunManager : MonoBehaviour
     [SerializeField]
     Transform zibraLiquid, zibraLiquidEmitter;
     [SerializeField]
+    GameObject LiquidColider;
+    [SerializeField]
     float liquidPower = 0.15f;
     [SerializeField]
     bool verbose = false;
     [SerializeField]
     bool implementMouseevent = true;
+    Vector3 coliderForce = new(0, 0, 750);
 
     ZibraLiquidEmitter liquidEmitter;
 
@@ -47,6 +50,22 @@ public class WatergunManager : MonoBehaviour
     {
         // If there's no emitter stop processing.
         if (!liquidEmitter) return;
+
+        if(liquidEmitter.VolumePerSimTime != 0)
+        {
+            GameObject gameObject = Instantiate(LiquidColider);
+            gameObject.SetActive(true);
+            //Collider collider = gameObject.GetComponent<Collider>();
+            Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+            if(!gameObject || !rigidbody)
+            {
+                Debug.LogError("GameObject and Collider not be found.");
+                return;
+            }
+            gameObject.transform.position = zibraLiquidEmitter.position;
+
+            rigidbody.AddForce(coliderForce);
+        }
 
         // This is test feature.
         // If there's mouse event, please be turn off feature.
