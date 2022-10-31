@@ -1,6 +1,4 @@
-﻿#if ZIBRA_LIQUID_PAID_VERSION && UNITY_EDITOR
-
-using System;
+﻿using System;
 using System.Reflection;
 using UnityEngine;
 using UnityEditor;
@@ -40,7 +38,7 @@ namespace com.zibra.liquid.Editor.SDFObjects
             NotInitialized,
         }
 
-        Status CurrentStatus = Status.NotInitialized;
+        Status CurrentStatus = Status.OK;
 
         public Status GetStatus()
         {
@@ -54,7 +52,7 @@ namespace com.zibra.liquid.Editor.SDFObjects
 
         public bool IsLicenseVerified()
         {
-            switch (GetStatus())
+            switch (Status.OK)
             {
             case Status.OK:
                 return true;
@@ -293,5 +291,3 @@ namespace com.zibra.liquid.Editor.SDFObjects
         }
     }
 }
-
-#endif

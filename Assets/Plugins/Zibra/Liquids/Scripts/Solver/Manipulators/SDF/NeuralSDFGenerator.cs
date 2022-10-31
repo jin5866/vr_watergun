@@ -1,5 +1,3 @@
-#if ZIBRA_LIQUID_PAID_VERSION && UNITY_EDITOR
-
 using com.zibra.liquid.DataStructures;
 using com.zibra.liquid.SDFObjects;
 using System;
@@ -258,5 +256,3 @@ namespace com.zibra.liquid.Editor.SDFObjects
         }
     }
 }
-
-#endif

@@ -15,7 +15,10 @@ public class WatergunManager : MonoBehaviour
     bool verbose = false;
     [SerializeField]
     bool implementMouseevent = true;
-    Vector3 coliderForce = new(0, 0, 750);
+
+    [SerializeField]
+    Vector3 coliderVelosity = new(0, 0, 3);
+
 
     ZibraLiquidEmitter liquidEmitter;
 
@@ -23,7 +26,7 @@ public class WatergunManager : MonoBehaviour
     void Start()
     {
         // If there's no Transform, It get Transform from getChild.
-        if(zibraLiquid == null || zibraLiquidEmitter == null)
+        if (zibraLiquid == null || zibraLiquidEmitter == null)
         {
             zibraLiquid = transform.GetChild(0);
             zibraLiquidEmitter = zibraLiquid.GetChild(0);
@@ -32,11 +35,12 @@ public class WatergunManager : MonoBehaviour
         }
         liquidEmitter = zibraLiquidEmitter.GetComponent<ZibraLiquidEmitter>();
         if (!liquidEmitter)
-            Debug.LogError("Initialize Failed on WatergunManeger:29");
+            Debug.LogError("Initialize Failed on WatergunManeger.Start()");
     }
     public void FireWater()
     {
         liquidEmitter.VolumePerSimTime = liquidPower;
+        CreateCollidingSphere();
         if (verbose) Debug.Log("Fire water.");
     }
     public void StopWater()
@@ -45,27 +49,32 @@ public class WatergunManager : MonoBehaviour
         if (verbose) Debug.Log("Stop firing water.");
     }
 
+    private void CreateCollidingSphere()
+    {
+        GameObject gameObject = Instantiate(LiquidColider);
+        gameObject.SetActive(true);
+        //Collider collider = gameObject.GetComponent<Collider>();
+        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+        if (!gameObject || !rigidbody)
+        {
+            Debug.LogError("GameObject and Collider not be found.");
+            return;
+        }
+        gameObject.transform.position = zibraLiquidEmitter.position;
+
+        Quaternion rotateX90 = Quaternion.Euler(Vector3.left * 90);
+
+        //rigidbody.AddForce();
+        rigidbody.velocity += rotateX90 * transform.rotation * coliderVelosity;
+    }
+
     // Update is called once per frame
     void Update()
     {
         // If there's no emitter stop processing.
         if (!liquidEmitter) return;
 
-        if(liquidEmitter.VolumePerSimTime != 0)
-        {
-            GameObject gameObject = Instantiate(LiquidColider);
-            gameObject.SetActive(true);
-            //Collider collider = gameObject.GetComponent<Collider>();
-            Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-            if(!gameObject || !rigidbody)
-            {
-                Debug.LogError("GameObject and Collider not be found.");
-                return;
-            }
-            gameObject.transform.position = zibraLiquidEmitter.position;
-
-            rigidbody.AddForce(coliderForce);
-        }
+        if (liquidEmitter.VolumePerSimTime != 0) CreateCollidingSphere();
 
         // This is test feature.
         // If there's mouse event, please be turn off feature.

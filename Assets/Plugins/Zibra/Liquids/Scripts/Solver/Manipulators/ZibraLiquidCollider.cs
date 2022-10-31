@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 namespace com.zibra.liquid.Manipulators
 {
-#if ZIBRA_LIQUID_PAID_VERSION
     public class ForceInteractionData
     {
         public Vector3 Force;
@@ -15,7 +14,6 @@ namespace com.zibra.liquid.Manipulators
 
     [System.Serializable]
     public class ForceInteractionCallbackType : UnityEvent<ForceInteractionData> { };
-#endif
 
     public class ZibraLiquidCollider : Manipulator
     {
@@ -28,22 +26,18 @@ namespace com.zibra.liquid.Manipulators
         [Range(0.0f, 1.0f)]
         public float Friction = 0.0f;
 
-#if ZIBRA_LIQUID_PAID_VERSION
         [Tooltip("Allows the fluid to apply force to the object")]
         public bool ForceInteraction;
 
         [Tooltip(
             "Callback that is triggered before applying force interaction. Called even if force interaction is disabled, so you can get forces that would be applied to the object.")]
         public ForceInteractionCallbackType ForceInteractionCallback;
-#endif
 
         override public ManipulatorType GetManipulatorType()
         {
-#if ZIBRA_LIQUID_PAID_VERSION
             if (GetComponent<SDFObjects.NeuralSDF>() != null)
                 return ManipulatorType.NeuralCollider;
             else
-#endif
                 return ManipulatorType.AnalyticCollider;
         }
 
@@ -54,7 +48,6 @@ namespace com.zibra.liquid.Manipulators
 
         public void ApplyForceTorque(Vector3 Force, Vector3 Torque)
         {
-#if ZIBRA_LIQUID_PAID_VERSION
             ForceInteractionData forceInteractionData = new ForceInteractionData();
             forceInteractionData.Force = Force;
             forceInteractionData.Torque = Torque;
@@ -72,13 +65,13 @@ namespace com.zibra.liquid.Manipulators
                     rg.AddForce(forceInteractionData.Force, ForceMode.Force);
                     rg.AddTorque(forceInteractionData.Torque, ForceMode.Force);
                 }
+
                 else
                 {
                     Debug.LogWarning(
                         "No rigid body component attached to collider, please add one for force interaction to work");
                 }
             }
-#endif
         }
 
 #if UNITY_EDITOR
@@ -86,10 +79,8 @@ namespace com.zibra.liquid.Manipulators
         {
             switch (GetManipulatorType())
             {
-#if ZIBRA_LIQUID_PAID_VERSION
             case Manipulator.ManipulatorType.NeuralCollider:
                 return Color.grey;
-#endif
             case Manipulator.ManipulatorType.AnalyticCollider:
             default:
                 return new Color(0.2f, 0.9f, 0.9f);
