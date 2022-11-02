@@ -49,10 +49,8 @@ namespace com.zibra.liquid.Solver
         public static extern Int32 GarbageCollect();
 
 #if UNITY_EDITOR
-#if ZIBRA_LIQUID_PAID_VERSION
         [DllImport(PluginLibraryName)]
         public static extern Int32 GetCurrentAffineBufferIndex(Int32 InstanceID);
-#endif
 
         [DllImport(PluginLibraryName)]
         public static extern bool IsPaidVersion();

@@ -11,9 +11,7 @@ using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
-#if UNITY_EDITOR && ZIBRA_LIQUID_PAID_VERSION
 using com.zibra.liquid.Editor.SDFObjects;
-#endif
 
 #if UNITY_PIPELINE_HDRP
 using UnityEngine.Rendering.HighDefinition;
@@ -321,12 +319,8 @@ namespace com.zibra.liquid.Solver
         Dictionary<Camera, Vector2Int> camRenderResolutions = new Dictionary<Camera, Vector2Int>();
         Dictionary<Camera, Vector2Int> camNativeResolutions = new Dictionary<Camera, Vector2Int>();
 
-#if ZIBRA_LIQUID_PAID_VERSION
+
         [Range(1024, 10000000)]
-#else
-        // Increasing this limit won't allow you to spawn more particles
-        [Range(1024, 2097152)]
-#endif
         public int MaxNumParticles = 262144;
 
         public ComputeBuffer PositionMass { get; private set; }
@@ -362,7 +356,6 @@ namespace com.zibra.liquid.Solver
 
 #region SOLVER
 
-#if ZIBRA_LIQUID_PAID_VERSION
         /// <summary>
         /// Types of initial conditions
         /// </summary>
@@ -389,7 +382,7 @@ namespace com.zibra.liquid.Solver
 
         [Tooltip("Baked state saved with Baking Utility. Will reset to None if incompatible file is detected.")]
         public TextAsset BakedInitialStateAsset;
-#endif
+
 
         /// <summary>
         /// Native solver instance ID number
@@ -830,7 +823,6 @@ namespace com.zibra.liquid.Solver
             SetupScriptableRenderComponents();
 
 #if UNITY_EDITOR
-#if ZIBRA_LIQUID_PAID_VERSION
             if (!ZibraLiquidBridge.IsPaidVersion())
             {
                 Debug.LogError(
@@ -842,7 +834,6 @@ namespace com.zibra.liquid.Solver
                 Debug.LogError(
                     "Paid version of native plugin used with free version of C# plugin. If you just replaced your Zibra Liquids version you need to restart Unity Editor.");
             }
-#endif
 #endif
 
             AllFluids?.Add(this);
@@ -895,11 +886,9 @@ namespace com.zibra.liquid.Solver
             ParticleNumber.name = "ParticleNumber";
 #endif
 
-#if ZIBRA_LIQUID_PAID_VERSION
             // We mush apply state before we send buffers to native plugin
             // SetData seems to recreate buffers at least on Metal
             ApplyInitialState();
-#endif
 
             int[] Pnums = new int[128];
             for (int i = 0; i < 128; i++)
@@ -1314,9 +1303,7 @@ namespace com.zibra.liquid.Solver
                 }
 #endif
 
-#if ZIBRA_LIQUID_PAID_VERSION
                 if (InitialState == ZibraLiquid.InitialStateType.NoParticles || BakedInitialStateAsset == null)
-#endif
                 {
                     bool haveEmitter = false;
                     foreach (var manipulator in manipulators)
@@ -1330,11 +1317,7 @@ namespace com.zibra.liquid.Solver
 
                     if (!haveEmitter)
                     {
-#if ZIBRA_LIQUID_PAID_VERSION
                         throw new Exception("Liquid creation failed. Liquid have neither initial state nor emitters.");
-#else
-                        throw new Exception("Liquid creation failed. Liquid have don't have any emitters.");
-#endif
                     }
                 }
 
@@ -2399,9 +2382,9 @@ namespace com.zibra.liquid.Solver
             speciesParameters.AffineAmmount = 4.0f * (1.0f - solverParameters.Viscosity);
             speciesParameters.LiquidStiffness = solverParameters.FluidStiffness;
             speciesParameters.RestDensity = solverParameters.ParticleDensity;
-#if ZIBRA_LIQUID_PAID_VERSION
+
             speciesParameters.SurfaceTension = solverParameters.SurfaceTension;
-#endif
+
             speciesParameters.AffineDivergenceDecay = 1.0f;
             speciesParameters.VelocityLimit = solverParameters.MaximumVelocity;
             return speciesParameters;
@@ -2495,7 +2478,6 @@ namespace com.zibra.liquid.Solver
 
         void UpdateManipulatorStatistics()
         {
-#if ZIBRA_LIQUID_PAID_VERSION
             /// ManipulatorStatistics GPUReadback
             if (!IsSimulationEnabled() || manipulatorManager.Elements == 0)
             {
@@ -2510,7 +2492,6 @@ namespace com.zibra.liquid.Solver
                 Marshal.Copy(readbackData, Stats, 0, (Int32)size);
                 manipulatorManager.UpdateStatistics(Stats, manipulators, solverParameters, sdfColliders);
             }
-#endif
         }
 
         // stability calibration curve fit
@@ -2541,9 +2522,8 @@ namespace com.zibra.liquid.Solver
             float MaxVelocityLimit = solverParameters.MaximumVelocity;
             fluidParameters.GlobalVelocityLimit = MaxVelocityLimit;
 
-#if ZIBRA_LIQUID_PAID_VERSION
             fluidParameters.MinimumVelocity = solverParameters.MinimumVelocity;
-#endif
+
             // BlurNormalizationConstant set by native plugin
             fluidParameters.MaxParticleCount = MaxNumParticles;
             fluidParameters.VisualizeSDF = visualizeSceneSDF ? 1 : 0;
@@ -2918,7 +2898,6 @@ namespace com.zibra.liquid.Solver
                 }
             }
 
-#if ZIBRA_LIQUID_PAID_VERSION
             if (BakedInitialStateAsset)
             {
                 int bakedLiquidHeader = BitConverter.ToInt32(BakedInitialStateAsset.bytes, 0);
@@ -2928,40 +2907,7 @@ namespace com.zibra.liquid.Solver
                     UnityEditor.EditorUtility.SetDirty(this);
                 }
             }
-#endif
 
-#if !ZIBRA_LIQUID_PAID_VERSION
-            List<Manipulator> newManips = new List<Manipulator>();
-
-            int forceFieldsFound = 0;
-            int emittersFound = 0;
-            foreach (Manipulator manip in manipulators)
-            {
-                if (manip is ZibraLiquidForceField)
-                {
-                    if (forceFieldsFound == 0) newManips.Add(manip);
-                    ++forceFieldsFound;
-                } 
-                else if (manip is ZibraLiquidEmitter)
-                {
-                    if (emittersFound == 0) newManips.Add(manip);
-                    ++emittersFound;
-                }
-            }
-            manipulators = newManips;
-            
-            if (forceFieldsFound > 1) 
-                Debug.LogWarning("Too many force fields for free version of Zibra Liquids, some force fields will be disabled. Free version limited to 1 force field.");
-            if (emittersFound > 1) 
-                Debug.LogWarning("Too many emitters for free version of Zibra Liquids, some emitters will be disabled. Free version limited to 1 emitter.");
-
-            if (sdfColliders.Count > 5)
-            {
-                Debug.LogWarning(
-                    "Too many SDF colliders for free version of Zibra Liquids, some colliders will be disabled. Free version limited to 5 SDF colliders.");
-                sdfColliders.RemoveRange(5, sdfColliders.Count - 5);
-            }
-#endif
         }
 #endif
 
@@ -3011,7 +2957,6 @@ namespace com.zibra.liquid.Solver
             return value;
         }
 
-#if ZIBRA_LIQUID_PAID_VERSION
         private BakedInitialState ConvertBytesToInitialState(byte[] data)
         {
             int startIndex = 0;
@@ -3113,7 +3058,6 @@ namespace com.zibra.liquid.Solver
                 break;
             }
         }
-#endif
 
         private Matrix4x4 CalculateEyeRayCameraCoeficients(Camera cam)
         {

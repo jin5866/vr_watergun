@@ -39,11 +39,9 @@ namespace com.zibra.liquid.DataStructures
         [Range(0.0f, 1.0f)]
         public float Viscosity = DEFAULT_VISCOSITY;
 
-#if ZIBRA_LIQUID_PAID_VERSION
         [Tooltip("You can set this parameter to negative value to get a spaghettification effect")]
         [Range(-1.0f, 1.0f)]
         public float SurfaceTension = 0.0f;
-#endif
 
         [NonSerialized]
         [HideInInspector]
@@ -55,7 +53,6 @@ namespace com.zibra.liquid.DataStructures
         [Range(0.0f, 10.0f)]
         public float MaximumVelocity = DEFAULT_MAX_VELOCITY;
 
-#if ZIBRA_LIQUID_PAID_VERSION
         [Tooltip(
             "Minimum velocity the particles can have, non-zero values make an infinite flow. For normal liquid this value should be 0.")]
         [Range(0.0f, 10.0f)]
@@ -64,7 +61,6 @@ namespace com.zibra.liquid.DataStructures
         [Tooltip("The strength of the force acting on rigid bodies. Have exponential scale, from exp(-4) to exp(4).")]
         [Range(-1.0f, 1.0f)]
         public float ForceInteractionStrength = 0.0f;
-#endif
 
 #if UNITY_EDITOR
         public void OnValidate()
@@ -102,11 +98,9 @@ namespace com.zibra.liquid.DataStructures
             [Range(0.0f, 1.0f)]
             public float Viscosity;
 
-#if ZIBRA_LIQUID_PAID_VERSION
             [Tooltip("You can set this parameter to negative value to get a spaghettification effect")]
             [Range(-1.0f, 1.0f)]
             public float SurfaceTension;
-#endif
 
             [Tooltip("The velocity limit of the particles")]
             [Range(0.0f, 10.0f)]

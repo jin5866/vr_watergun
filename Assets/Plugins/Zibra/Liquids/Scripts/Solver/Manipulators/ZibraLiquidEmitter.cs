@@ -15,12 +15,10 @@ namespace com.zibra.liquid.Manipulators
     [DisallowMultipleComponent]
     public class ZibraLiquidEmitter : Manipulator
     {
-#if ZIBRA_LIQUID_PAID_VERSION
         [NonSerialized]
         public long createdParticlesTotal = 0;
         [NonSerialized]
         public int createdParticlesPerFrame = 0;
-#endif
 
         [Obsolete("ClampBehaviorType is deprecated.", true)]
         public enum ClampBehaviorType

@@ -114,12 +114,10 @@ namespace com.zibra.liquid.Manipulators
         [HideInInspector]
         public int EmbeddingTextureDimension = 0;
 
-#if ZIBRA_LIQUID_PAID_VERSION
         [HideInInspector]
         public Dictionary<ZibraHash128, NeuralSDF> neuralSDFs = new Dictionary<ZibraHash128, NeuralSDF>();
         [HideInInspector]
         public Dictionary<ZibraHash128, int> textureHashMap = new Dictionary<ZibraHash128, int>();
-#endif
 
         private List<Manipulator> manipulators;
 
@@ -157,11 +155,8 @@ namespace com.zibra.liquid.Manipulators
             sdf.TotalGroupVolume = 0.0f;
             sdf.BBoxSize = 0.5f * manipulator.transform.lossyScale;
 
-#if ZIBRA_LIQUID_PAID_VERSION
             if (manipulator is ZibraLiquidEmitter || manipulator is ZibraLiquidVoid)
-#else
-            if (manipulator is ZibraLiquidEmitter)
-#endif
+
             {
                 // use Box as default
                 sdf.Type = 1;
@@ -175,7 +170,6 @@ namespace com.zibra.liquid.Manipulators
                 sdf.BBoxSize = analyticSDF.GetBBoxSize();
             }
 
-#if ZIBRA_LIQUID_PAID_VERSION
             if (obj is NeuralSDF)
             {
                 NeuralSDF neuralSDF = obj as NeuralSDF;
@@ -191,13 +185,11 @@ namespace com.zibra.liquid.Manipulators
                 sdf.DistanceScale = neuralSDF.InvertSDF ? -1.0f : 1.0f;
                 sdf.BBoxSize = sdf.Scale;
             }
-#endif
 
             sdf.BBoxVolume = sdf.BBoxSize.x * sdf.BBoxSize.y * sdf.BBoxSize.z;
             return sdf;
         }
 
-#if ZIBRA_LIQUID_PAID_VERSION
         protected void AddTexture(NeuralSDF neuralSDF)
         {
             ZibraHash128 curHash = neuralSDF.objectRepresentation.GetHash();
@@ -295,7 +287,6 @@ namespace com.zibra.liquid.Manipulators
             }
         }
 
-#endif
 
         /// <summary>
         /// Update all arrays and lists with manipulator object data
@@ -359,7 +350,6 @@ namespace com.zibra.liquid.Manipulators
             return id * Solver.ZibraLiquid.STATISTICS_PER_MANIPULATOR + offset;
         }
 
-#if ZIBRA_LIQUID_PAID_VERSION
         /// <summary>
         /// Update manipulator statistics
         /// </summary>
@@ -411,7 +401,6 @@ namespace com.zibra.liquid.Manipulators
                 id++;
             }
         }
-#endif
 
         /// <summary>
         /// Update constant object data and generate and sort the current manipulator list
@@ -421,10 +410,8 @@ namespace com.zibra.liquid.Manipulators
         {
             manipulators = new List<Manipulator>();
 
-#if ZIBRA_LIQUID_PAID_VERSION
             neuralSDFs = new Dictionary<ZibraHash128, NeuralSDF>();
             textureHashMap = new Dictionary<ZibraHash128, int>();
-#endif
 
             // add all colliders to the manipulator list
             foreach (var manipulator in curManipulators)
@@ -439,7 +426,6 @@ namespace com.zibra.liquid.Manipulators
                     continue;
                 }
 
-#if ZIBRA_LIQUID_PAID_VERSION
                 if (sdf is NeuralSDF)
                 {
                     NeuralSDF neuralSDF = manipulator.GetComponent<NeuralSDF>();
@@ -451,7 +437,6 @@ namespace com.zibra.liquid.Manipulators
                         continue;
                     }
                 }
-#endif
 
                 manipulators.Add(manipulator);
             }
@@ -469,7 +454,6 @@ namespace com.zibra.liquid.Manipulators
                     continue;
                 }
 
-#if ZIBRA_LIQUID_PAID_VERSION
                 NeuralSDF neuralSDF = manipulator.GetComponent<NeuralSDF>();
                 if (neuralSDF != null && !neuralSDF.objectRepresentation.HasRepresentationV3)
                 {
@@ -477,7 +461,6 @@ namespace com.zibra.liquid.Manipulators
                                      " was not generated and is disabled.");
                     continue;
                 }
-#endif
 
                 manipulators.Add(manipulator);
             }
@@ -532,7 +515,6 @@ namespace com.zibra.liquid.Manipulators
                 ConstDataID.Clear();
             }
 
-#if ZIBRA_LIQUID_PAID_VERSION
             SDFTextureSize = 0;
             EmbeddingTextureSize = 0;
             TextureCount = 0;
@@ -548,7 +530,6 @@ namespace com.zibra.liquid.Manipulators
             }
 
             CalculateTextureData();
-#endif
         }
     }
 }

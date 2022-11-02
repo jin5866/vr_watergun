@@ -24,9 +24,7 @@ namespace com.zibra.liquid.SDFObjects
             NeuralSDF sdf = gameObject.AddComponent<NeuralSDF>();
 
             collider.Friction = Friction;
-#if ZIBRA_LIQUID_PAID_VERSION
             collider.ForceInteraction = ForceInteraction;
-#endif
 
             sdf.InvertSDF = InvertSDF;
 

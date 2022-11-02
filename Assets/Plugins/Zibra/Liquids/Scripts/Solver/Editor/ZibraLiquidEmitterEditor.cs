@@ -16,9 +16,7 @@ namespace com.zibra.liquid.Editor.Solver
         public override void OnInspectorGUI()
         {
             bool missingSDF = false;
-#if ZIBRA_LIQUID_PAID_VERSION
             bool hasNeuralSDF = false;
-#endif
 
             foreach (var instance in EmitterInstances)
             {
@@ -29,13 +27,11 @@ namespace com.zibra.liquid.Editor.Solver
                     continue;
                 }
 
-#if ZIBRA_LIQUID_PAID_VERSION
                 if (sdf is NeuralSDF)
                 {
                     hasNeuralSDF = true;
                     continue;
                 }
-#endif
             }
 
             if (missingSDF)
@@ -58,7 +54,6 @@ namespace com.zibra.liquid.Editor.Solver
                 GUILayout.Space(5);
             }
 
-#if ZIBRA_LIQUID_PAID_VERSION
             if (hasNeuralSDF)
             {
                 if (EmitterInstances.Length > 1)
@@ -84,9 +79,7 @@ namespace com.zibra.liquid.Editor.Solver
                 }
                 GUILayout.Space(5);
             }
-#endif
 
-#if ZIBRA_LIQUID_PAID_VERSION
             if (EmitterInstances.Length > 1)
                 GUILayout.Label("Multiple emitters selected. Showing sum of all selected instances.");
             long createdTotal = 0;
@@ -99,7 +92,6 @@ namespace com.zibra.liquid.Editor.Solver
             GUILayout.Label("Total amount of created particles: " + createdTotal);
             GUILayout.Label("Amount of created particles per frame: " + createdCurrentFrame);
             GUILayout.Space(10);
-#endif
 
             serializedObject.Update();
 

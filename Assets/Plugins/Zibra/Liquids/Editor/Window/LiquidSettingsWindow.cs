@@ -3,9 +3,7 @@ using com.zibra.liquid.Plugins.Editor;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-#if ZIBRA_LIQUID_PAID_VERSION
 using com.zibra.liquid.Editor.SDFObjects;
-#endif
 
 namespace com.zibra.liquid
 {
@@ -20,7 +18,6 @@ namespace com.zibra.liquid
 
         protected void Update()
         {
-#if ZIBRA_LIQUID_PAID_VERSION
             if (!ZibraServerAuthenticationManager.GetInstance().bNeedRefresh)
                 return;
 
@@ -40,7 +37,6 @@ namespace com.zibra.liquid
             }
 
             ZibraServerAuthenticationManager.GetInstance().bNeedRefresh = false;
-#endif
         }
 
         public static GUIContent WindowTitle => new GUIContent(ZibraAIPackage.DisplayName);

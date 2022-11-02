@@ -1,4 +1,4 @@
-#if UNITY_EDITOR && ZIBRA_LIQUID_PAID_VERSION
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using com.zibra.liquid.Solver;

@@ -1,4 +1,4 @@
-#if ZIBRA_LIQUID_PAID_VERSION
+
 using UnityEngine;
 using UnityEditor;
 using com.zibra.liquid.SDFObjects;
@@ -15,9 +15,9 @@ namespace com.zibra.liquid.Editor.Solver
         public override void OnInspectorGUI()
         {
             bool missingSDF = false;
-#if ZIBRA_LIQUID_PAID_VERSION
+
             bool hasNeuralSDF = false;
-#endif
+
 
             foreach (var instance in DetectorInstances)
             {
@@ -28,13 +28,13 @@ namespace com.zibra.liquid.Editor.Solver
                     continue;
                 }
 
-#if ZIBRA_LIQUID_PAID_VERSION
+
                 if (sdf is NeuralSDF)
                 {
                     hasNeuralSDF = true;
                     continue;
                 }
-#endif
+
             }
 
             if (missingSDF)
@@ -57,7 +57,7 @@ namespace com.zibra.liquid.Editor.Solver
                 GUILayout.Space(5);
             }
 
-#if ZIBRA_LIQUID_PAID_VERSION
+
             if (hasNeuralSDF)
             {
                 if (DetectorInstances.Length > 1)
@@ -83,7 +83,7 @@ namespace com.zibra.liquid.Editor.Solver
                 }
                 GUILayout.Space(5);
             }
-#endif
+
 
             if (DetectorInstances.Length > 1)
                 GUILayout.Label("Multiple detectors selected. Showing sum of all selected instances.");
@@ -111,4 +111,3 @@ namespace com.zibra.liquid.Editor.Solver
         }
     }
 }
-#endif

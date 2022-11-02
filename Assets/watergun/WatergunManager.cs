@@ -65,7 +65,7 @@ public class WatergunManager : MonoBehaviour
         Quaternion rotateX90 = Quaternion.Euler(Vector3.left * 90);
 
         //rigidbody.AddForce();
-        rigidbody.velocity += rotateX90 * transform.rotation * coliderVelosity;
+        rigidbody.velocity += transform.rotation * coliderVelosity;
     }
 
     // Update is called once per frame

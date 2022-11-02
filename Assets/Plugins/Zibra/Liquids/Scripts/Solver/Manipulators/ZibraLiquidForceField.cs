@@ -17,10 +17,8 @@ namespace com.zibra.liquid.Manipulators
         public enum ForceFieldType
         {
             Radial,
-#if ZIBRA_LIQUID_PAID_VERSION
             Directional,
             Swirl
-#endif
         }
 
         public enum ForceFieldShape
@@ -31,9 +29,6 @@ namespace com.zibra.liquid.Manipulators
 
         public const float STRENGTH_DRAW_THRESHOLD = 0.001f;
 
-#if !ZIBRA_LIQUID_PAID_VERSION
-        [HideInInspector]
-#endif
         public ForceFieldType Type = ForceFieldType.Radial;
 
         [HideInInspector]
@@ -165,14 +160,12 @@ namespace com.zibra.liquid.Manipulators
                 case ForceFieldType.Radial:
                     Utilities.GizmosHelper.DrawArrowsSphereRadial(Vector3.zero, Strength, 32);
                     break;
-#if ZIBRA_LIQUID_PAID_VERSION
                 case ForceFieldType.Directional:
                     Utilities.GizmosHelper.DrawArrowsSphereDirectional(Vector3.zero, Vector3.right * Strength, 32);
                     break;
                 case ForceFieldType.Swirl:
                     Utilities.GizmosHelper.DrawArrowsSphereTangent(Vector3.zero, ForceDirection * Strength, 32);
                     break;
-#endif
             }
         }
 

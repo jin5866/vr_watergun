@@ -63,7 +63,7 @@ namespace com.zibra.liquid.Editor.Solver
             Selection.activeObject = go;
         }
 
-#if ZIBRA_LIQUID_PAID_VERSION
+#if ZIBRA_LIQUID__VERSION
         [MenuItem("GameObject/Zibra/Zibra Liquid Void", false, 20)]
         private static void CreateZibraVoid(MenuCommand menuCommand)
         {
@@ -351,11 +351,7 @@ namespace com.zibra.liquid.Editor.Solver
             foreach (var liquid in ZibraLiquidInstances)
             {
                 bool haveEmitter = liquid.HasEmitter();
-#if ZIBRA_LIQUID_PAID_VERSION
                 bool haveBakedLiquid = (liquid.InitialState == ZibraLiquid.InitialStateType.BakedLiquidState);
-#else
-                const bool haveBakedLiquid = false;
-#endif
                 if (!haveEmitter && !haveBakedLiquid)
                 {
                     liquidCanSpawn = false;
@@ -477,7 +473,6 @@ namespace com.zibra.liquid.Editor.Solver
                     MessageType.Info);
             }
 
-#if ZIBRA_LIQUID_PAID_VERSION
             bool noInitialState = false;
             foreach (var instance in ZibraLiquidInstances)
             {
@@ -493,7 +488,6 @@ namespace com.zibra.liquid.Editor.Solver
                                             (ZibraLiquidInstances.Length == 1 ? "." : " in at least 1 instance."),
                                         MessageType.Error);
             }
-#endif
 
             GUILayout.Space(5);
 
@@ -740,7 +734,6 @@ namespace com.zibra.liquid.Editor.Solver
                     else
                     {
                         // No point in "Add all" button on free version since you can only have 2 manipulators anyway
-#if ZIBRA_LIQUID_PAID_VERSION
                         if (GUILayout.Button("Add all"))
                         {
                             foreach (var liquid in ZibraLiquidInstances)
@@ -751,7 +744,6 @@ namespace com.zibra.liquid.Editor.Solver
                                 }
                             }
                         }
-#endif
                     }
 
                     EditorGUI.indentLevel--;
@@ -845,7 +837,6 @@ namespace com.zibra.liquid.Editor.Solver
 
             EditorGUI.BeginDisabledGroup(anyInstanceActivated);
 
-#if ZIBRA_LIQUID_PAID_VERSION
             EditorGUILayout.PropertyField(InitialState);
 
             bool showBaking = false;
@@ -875,7 +866,6 @@ namespace com.zibra.liquid.Editor.Solver
 
                 EditorGUI.EndDisabledGroup();
             }
-#endif
 
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(CurrentRenderingMode);

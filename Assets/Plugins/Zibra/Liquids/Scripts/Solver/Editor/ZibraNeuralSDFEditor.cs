@@ -1,4 +1,3 @@
-#if ZIBRA_LIQUID_PAID_VERSION
 
 using UnityEngine;
 using UnityEditor;
@@ -212,4 +211,3 @@ namespace com.zibra.liquid.Editor.SDFObjects
         }
     }
 }
-#endif

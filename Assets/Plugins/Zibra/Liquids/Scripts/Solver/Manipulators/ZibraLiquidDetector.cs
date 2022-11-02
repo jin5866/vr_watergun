@@ -1,5 +1,4 @@
-﻿#if ZIBRA_LIQUID_PAID_VERSION
-
+﻿
 using UnityEngine;
 using System;
 using com.zibra.liquid.SDFObjects;
@@ -85,5 +84,3 @@ namespace com.zibra.liquid.Manipulators
 #endif
     }
 }
-
-#endif
