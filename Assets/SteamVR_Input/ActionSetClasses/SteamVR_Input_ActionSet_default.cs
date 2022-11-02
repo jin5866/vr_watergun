@@ -121,6 +121,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean LeftFire
+        {
+            get
+            {
+                return SteamVR_Actions.default_LeftFire;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean RightFire
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightFire;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get
