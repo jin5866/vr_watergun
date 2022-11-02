@@ -46,6 +46,7 @@ public class HUD : MonoBehaviour
     private void OnGameEnd(object sender, System.EventArgs e)
     {
         //Debug.Log("GameEnd");
+        //Print Score On Canvas
     }
 
     public float Health 
