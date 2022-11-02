@@ -61,7 +61,7 @@ public class HUD : MonoBehaviour
     public float MaxBoost
     {
         private get
-        { return _boost; }
+        { return _maxboost; }
         set
         {
             boostBar.SetGauge(_boost / value);
