@@ -22,16 +22,30 @@ public class HUD : MonoBehaviour
     private float _boost = 0.5f;
     private float _maxboost = 1.0f;
 
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         RemainTime = 10.0f;
+        gameManager = FindObjectOfType<GameManager>();
+
+        if (gameManager)
+        {
+            gameManager.GameEndEvent += new System.EventHandler(OnGameEnd);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        RemainTime = gameManager.RemainTime;
+    }
 
+
+    private void OnGameEnd(object sender, System.EventArgs e)
+    {
+        //Debug.Log("GameEnd");
     }
 
     public float Health 
