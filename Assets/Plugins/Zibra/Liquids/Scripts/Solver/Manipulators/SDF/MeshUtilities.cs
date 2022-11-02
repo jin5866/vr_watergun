@@ -1,3 +1,5 @@
+#if ZIBRA_LIQUID_PAID_VERSION
+
 using com.zibra.liquid.DataStructures;
 using com.zibra.liquid.Solver;
 using com.zibra.liquid.Utilities;
@@ -95,3 +97,5 @@ namespace com.zibra.liquid.SDFObjects
     }
 
 }
+
+#endif

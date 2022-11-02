@@ -30,7 +30,9 @@ namespace com.zibra.liquid.SDFObjects
             AnalyticSDF sdf = gameObject.AddComponent<AnalyticSDF>();
 
             collider.Friction = Friction;
+#if ZIBRA_LIQUID_PAID_VERSION
             collider.ForceInteraction = ForceInteraction;
+#endif
 
             sdf.chosenSDFType = chosenSDFType;
             sdf.InvertSDF = InvertSDF;

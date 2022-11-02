@@ -26,13 +26,21 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: FluidMaterial
+    propertyPath: FluidMeshMaterial
     value: 
-    objectReference: {fileID: 2100000, guid: 212140388bc74764ba19ea2bbe4ce94c, type: 2}
+    objectReference: {fileID: 2100000, guid: 248b1858901577949a18bb8d09cb583f, type: 2}
   - target: {fileID: 0}
     propertyPath: UpscaleMaterial
     value: 
     objectReference: {fileID: 2100000, guid: 374557399a8cb1b499aee6a0cc226496, type: 2}
+  - target: {fileID: 0}
+    propertyPath: SDFRenderMaterial
+    value: 
+    objectReference: {fileID: 2100000, guid: a29ad26b5c6c24c43ba0cbdc686b6b41, type: 2}
+  - target: {fileID: 0}
+    propertyPath: NoOpMaterial
+    value: 
+    objectReference: {fileID: 2100000, guid: 248b1858901577949a18bb8d09cb583f, type: 2}
   - target: {fileID: 0}
     propertyPath: Color.r
     value: 0.8632076
@@ -66,6 +74,22 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: EmissiveColor.r
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EmissiveColor.g
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EmissiveColor.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: EmissiveColor.a
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: SmoothnessOld
     value: 0.96
     objectReference: {fileID: 0}
@@ -78,38 +102,27 @@ Preset:
     value: 0.248
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: Opacity
-    value: 10
+    propertyPath: ScatteringAmount
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbsorptionAmount
+    value: 20
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: Shadowing
     value: 0.071
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: RefractionDistortion
-    value: 0.15
+    propertyPath: IndexOfRefraction
+    value: 1.333
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: ParticleScale
-    value: 2.48
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: FoamIntensity
-    value: 0.9
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: FoamAmount
-    value: 4
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: BlurRadius
-    value: 0.008
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: BilateralWeight
-    value: 2.5
+    propertyPath: FluidSurfaceBlur
+    value: 1.5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: ObjectVersion
     value: 1
     objectReference: {fileID: 0}
+  m_ExcludedProperties: []

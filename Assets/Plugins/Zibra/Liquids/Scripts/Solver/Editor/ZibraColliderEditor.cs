@@ -19,7 +19,9 @@ namespace com.zibra.liquid.Editor.SDFObjects
 
         protected void Awake()
         {
+#if ZIBRA_LIQUID_PAID_VERSION
             ZibraServerAuthenticationManager.GetInstance().Initialize();
+#endif
         }
 
         protected void OnEnable()
@@ -52,15 +54,19 @@ namespace com.zibra.liquid.Editor.SDFObjects
         {
             serializedObject.Update();
 
+#if ZIBRA_LIQUID_PAID_VERSION
             bool isRigidbodyComponentMissing = false;
+#endif
             bool missingSDF = false;
 
             foreach (var instance in Colliders)
             {
+#if ZIBRA_LIQUID_PAID_VERSION
                 if (instance.ForceInteraction && instance.GetComponent<Rigidbody>() == null)
                 {
                     isRigidbodyComponentMissing = true;
                 }
+#endif
                 SDFObject sdf = instance.GetComponent<SDFObject>();
                 if (sdf == null)
                 {
@@ -85,6 +91,7 @@ namespace com.zibra.liquid.Editor.SDFObjects
                         }
                     }
                 }
+#if ZIBRA_LIQUID_PAID_VERSION
                 if (GUILayout.Button(Colliders.Length > 1 ? "Add Neural SDFs" : "Add Neural SDF"))
                 {
                     foreach (var instance in Colliders)
@@ -95,9 +102,11 @@ namespace com.zibra.liquid.Editor.SDFObjects
                         }
                     }
                 }
+#endif
                 GUILayout.Space(5);
             }
 
+#if ZIBRA_LIQUID_PAID_VERSION
             if (isRigidbodyComponentMissing)
             {
                 if (Colliders.Length > 1)
@@ -137,7 +146,7 @@ namespace com.zibra.liquid.Editor.SDFObjects
             EditorGUILayout.PropertyField(Friction);
             EditorGUILayout.PropertyField(ForceInteraction);
             EditorGUILayout.PropertyField(ForceInteractionCallback);
-
+#endif
 
             serializedObject.ApplyModifiedProperties();
         }
