@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
         _score += score;
     }
 
+    public void OnHealthIsZero(int playerid)
+    {
+        GameEnd();
+    }
+
     private void GameEnd()
     {
         isOnGame = false;
