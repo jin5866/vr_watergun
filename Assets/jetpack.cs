@@ -36,6 +36,8 @@ public class jetpack : MonoBehaviour
     [SerializeField]
     private float powerDownRate = 2.0f;
 
+    [SerializeField]
+    private HUD hud;
 
 
     private float accOfBooster = 9.8f;
@@ -50,6 +52,7 @@ public class jetpack : MonoBehaviour
         Debug.Log(GetComponent<Rigidbody>());
 
         accOfBooster = normalmodeAcc;
+        hud.MaxBoost = maxAcc;
     }
 
     // Update is called once per frame
@@ -110,8 +113,9 @@ public class jetpack : MonoBehaviour
 
 
         rigidbody.AddForce(accOnThisUpdate, ForceMode.Acceleration);
-        
-        
+
+        hud.Boost = accOfBooster;
+
     }
 
     private Vector3 GetAccVelReturnToZero(float reveseAccWeight = 1.0f)

@@ -303,6 +303,7 @@ MonoBehaviour:
   breakAccToZero: 10
   powerDownAltitude: 50
   powerDownRate: 2
+  hud: {fileID: 3602119497465525204}
 --- !u!1 &109154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,6 +2967,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdb1d7a8fdd60854484e3dd67509b1ea, type: 3}
+--- !u!114 &3602119497465525204 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 952206786832727243, guid: bdb1d7a8fdd60854484e3dd67509b1ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 4380779359813865247}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1627ce11df6d1b6499914ca3bf4bfb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3602119498340356700 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 952206788076526915, guid: bdb1d7a8fdd60854484e3dd67509b1ea,
