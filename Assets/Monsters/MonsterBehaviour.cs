@@ -90,14 +90,14 @@ public class MonsterBehaviour : MonoBehaviour
         {
             Debug.Log("Monster is hitted by Player.");
             collision.GetComponent<PlayerState>().Damage(1,damageType);
-            Damage(1);
+            Destroy(gameObject);
         }
     }
     void OntriggerStay(Collider collision)
     {
         if (collision.gameObject.name == "Fire Attack Range" && damageType == DamageType.Fire)
         {
-            Debug.Log("Fire Monster is hitted by Fire.");
+            Debug.Log("Fire Monster is still hitted by Fire.");
             Damage(2);
         }
     }
