@@ -109,6 +109,8 @@ public class LevelMove : MonoBehaviour, Timer
     private void ChangeLevel()
     {
         SceneManager.LoadScene(LevelName);
+
+        Destroy(player);
     }
 
     public float GetRemainTime()

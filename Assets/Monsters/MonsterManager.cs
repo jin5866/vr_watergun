@@ -53,7 +53,7 @@ public class MonsterManager : MonoBehaviour
             return;
         }
         float distance = Random.Range(0, spawn.SpawnDistance);
-        GameObject gameObject = Instantiate(monsters[monsterNumber], spawn.SpawnCenter[Random.Range(0, 2)].position, Quaternion.identity, transform);
+        GameObject gameObject = Instantiate(monsters[monsterNumber], spawn.SpawnCenter[Random.Range(0, spawn.SpawnCenter.Count)].position, Quaternion.identity, transform);
         gameObject.GetComponent<MonsterBehaviour>().Initialize(health, speed);
         gameObject.SetActive(true);
         lastSpawnTime = Time.realtimeSinceStartup;

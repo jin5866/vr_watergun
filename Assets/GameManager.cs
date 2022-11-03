@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour, Timer
         //Debug.Log("GameEnd gm");
 
         SceneManager.LoadScene(EndSceneName);
+        Destroy(FindObjectOfType<PlayerState>().gameObject);
     }
 
     public float GetRemainTime()
