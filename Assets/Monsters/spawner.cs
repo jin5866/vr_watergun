@@ -5,7 +5,7 @@ using UnityEngine;
 public class spawner : MonoBehaviour
 {
     public GameObject monster;
-    public GameObject GameManager;
+    public GameManager gameManager;
     public bool respawn;
     public float spawnDelay;
     private float currentTime;
@@ -14,8 +14,7 @@ public class spawner : MonoBehaviour
     {
         Spawn();
         currentTime = spawnDelay;
-        // 시작할 때 게임 매니저의 인스턴스 생성. (이게 맞나..?)
-        GameObject gameManagerInstance = Instantiate(GameManager);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // 함수 호출 시 필드 내 랜덤한 좌표에 몬스터 생성
