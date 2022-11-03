@@ -30,7 +30,6 @@ public class ReadOnlyDrawer : PropertyDrawer
 }
 //end ref.
 
-//TBD enum MonsterType { Water, Fire }
 
 public class MonsterBehaviour : MonoBehaviour
 {
@@ -38,14 +37,15 @@ public class MonsterBehaviour : MonoBehaviour
     static float defaultSpeed = 3f;
 
 
-    [ReadOnly,SerializeField]
+    [ReadOnly, SerializeField]
     int health = defaultHealth;
     [SerializeField]
     bool isFollowingPlayer = true;
     [SerializeField]
     float speed = defaultSpeed;
     public MonsterManager manager;
-    //TBD MonsterType type;
+    [ReadOnly, SerializeField]
+    DamageType damageType;
 
 
     public void Damage(int value)
@@ -71,9 +71,35 @@ public class MonsterBehaviour : MonoBehaviour
     {
         this.speed = speed;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        //collision type? TBD.
+        //This is Hard Coding. -Kim
+        //Debug.Log("Monster is hitted by Collider.");
+        //Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.name == "Ball Collider(Clone)" && damageType == DamageType.Water)
+        {
+            Debug.Log("Water Monster is hitted by Water.");
+            Damage(1);
+        }
+        else if (collision.gameObject.name == "Fire Attack Range" && damageType == DamageType.Fire)
+        {
+            Debug.Log("Fire Monster is hitted by Fire.");
+            Damage(2);
+        }
+        else if (collision.gameObject.name == "Player")
+        {
+            Debug.Log("Monster is hitted by Player.");
+            collision.GetComponent<PlayerState>().Damage(1,damageType);
+            Damage(1);
+        }
+    }
+    void OntriggerStay(Collider collision)
+    {
+        if (collision.gameObject.name == "Fire Attack Range" && damageType == DamageType.Fire)
+        {
+            Debug.Log("Fire Monster is hitted by Fire.");
+            Damage(2);
+        }
     }
 
     // Start is called before the first frame update
@@ -84,7 +110,22 @@ public class MonsterBehaviour : MonoBehaviour
         {
             Debug.Log("Can't find MonsterManager. Destroy it.");
             Destroy(this);
-        }        
+        }
+        damageType = (DamageType)Random.Range(0, 2);
+        SetMaterial();
+
+    }
+    void SetMaterial()
+    {
+        switch (damageType)
+        {
+            case DamageType.Water:
+                gameObject.GetComponent<Renderer>().material = manager.monsterMaterials[DamageType.Water];
+                break;
+            case DamageType.Fire:
+                gameObject.GetComponent<Renderer>().material = manager.monsterMaterials[DamageType.Fire];
+                break;
+        }
     }
 
     void Follow()
@@ -100,6 +141,6 @@ public class MonsterBehaviour : MonoBehaviour
     void Update()
     {
         if (isFollowingPlayer) Follow();
-        
+
     }
 }

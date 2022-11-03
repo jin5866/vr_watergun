@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MonsterType { Water = 0, Fire = 1 };
+
 //May be Singletone? -Kim
 public class MonsterManager : MonoBehaviour
 {
@@ -15,7 +17,14 @@ public class MonsterManager : MonoBehaviour
     int health;
     [SerializeField]
     float speed;
-    public Vector3 PlayerPosition { get => player.transform.position; }
+    [SerializeField]
+    Material waterMaterial;
+    [SerializeField]
+    Material fireMaterial;
+
+
+    public Dictionary<DamageType, Material> monsterMaterials = new Dictionary<DamageType, Material>();
+    public Vector3 PlayerPosition { get => player.transform.position;}
 
     float lastSpawnTime = -100;
 
@@ -29,8 +38,13 @@ public class MonsterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Copilot is God.
         if (!monster) Debug.LogError("Please attach Monster Prefab.");
         if (!player) Debug.LogError("Please attach Player.");
+        if(!waterMaterial) Debug.LogError("Please attach Water Material.");
+        if (!fireMaterial) Debug.LogError("Please attach Fire Material.");
+        monsterMaterials[DamageType.Water] = waterMaterial;
+        monsterMaterials[DamageType.Fire] = fireMaterial;
     }
 
     Vector3 RandomVector()

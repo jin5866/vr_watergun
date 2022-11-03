@@ -43,7 +43,7 @@ public class PlayerState : MonoBehaviour
             
             
             _health = value;
-            hud.Health = value;
+            if(hud) hud.Health = value;
             if (value <= 0)
             {
                 Die();
@@ -54,6 +54,7 @@ public class PlayerState : MonoBehaviour
     public void Damage(float value,DamageType damageType)
     {
         Health -= value;
+        Debug.Log("Player " + _id + " damaged by " + value + " " + damageType + " damage.");
     }
 
     private void Die()
