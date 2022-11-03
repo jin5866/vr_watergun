@@ -44,7 +44,7 @@ public class PlayerState : MonoBehaviour
 
     private void Update()
     {
-        Health -= Time.deltaTime * 30;
+        //Health -= Time.deltaTime * 30;
     }
 
     public float Health
