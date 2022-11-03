@@ -37,14 +37,14 @@ public class MonsterBehaviour : MonoBehaviour
     static float defaultSpeed = 3f;
 
 
-    [ReadOnly, SerializeField]
+    [SerializeField]
     float health = defaultHealth;
     [SerializeField]
     bool isFollowingPlayer = true;
     [SerializeField]
     float speed = defaultSpeed;
     public MonsterManager manager;
-    [ReadOnly, SerializeField]
+    [SerializeField]
     DamageType damageType;
     float lastAttackTime = -100;
     float duration = 0.5f;

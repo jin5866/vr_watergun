@@ -8,7 +8,7 @@ public enum MonsterType { Water = 0, Fire = 1 };
 public class MonsterManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject monster;
+    GameObject[] monsters;
     [SerializeField]
     GameObject player;
     [SerializeField]
@@ -17,10 +17,6 @@ public class MonsterManager : MonoBehaviour
     int health;
     [SerializeField]
     float speed;
-    [SerializeField]
-    Material waterMaterial;
-    [SerializeField]
-    Material fireMaterial;
 
 
     public Dictionary<DamageType, Material> monsterMaterials = new Dictionary<DamageType, Material>();
@@ -39,29 +35,25 @@ public class MonsterManager : MonoBehaviour
     void Start()
     {
         // Copilot is God.
-        if (!monster) Debug.LogError("Please attach Monster Prefab.");
+        if (monsters.Length == 0) Debug.LogError("Please attach Monster Prefab.");
         if (!player) Debug.LogError("Please attach Player.");
-        if (!waterMaterial) Debug.LogError("Please attach Water Material.");
-        if (!fireMaterial) Debug.LogError("Please attach Fire Material.");
-        monsterMaterials[DamageType.Water] = waterMaterial;
-        monsterMaterials[DamageType.Fire] = fireMaterial;
     }
 
     Vector3 RandomVector()
     {
         return new Vector3(Random.value, Random.value, Random.value);
     }
-    void Spawnf()
+    // Spawn a monster with monster number.
+    public void Spawnf(int monsterNumber)
     {
+        // Error Check. Copilot is God.
+        if(monsterNumber >= monsters.Length)
+        {
+            Debug.LogError("Monster Number is out of range.");
+            return;
+        }
         float distance = Random.Range(0, spawn.SpawnDistance);
-        /*
-        Vector3 direction = Quaternion.Euler(RandomVector() * 90) * Vector3.Normalize(RandomVector());
-        Vector3 position = spawn.SpawnCenter[0].position;       //TBD
-        Quaternion rotationObject = Quaternion.Euler(RandomVector() * 90);
-        Quaternion rotationPosition = Quaternion.Euler(RandomVector() * 90);
-        GameObject gameObject = Instantiate(monster, rotationPosition * (position + distance * direction), rotationObject, transform);
-        */
-        GameObject gameObject = Instantiate(monster, spawn.SpawnCenter[Random.Range(0, 2)].position, Quaternion.identity, transform);
+        GameObject gameObject = Instantiate(monsters[monsterNumber], spawn.SpawnCenter[Random.Range(0, 2)].position, Quaternion.identity, transform);
         gameObject.GetComponent<MonsterBehaviour>().Initialize(health, speed);
         gameObject.SetActive(true);
         lastSpawnTime = Time.realtimeSinceStartup;
@@ -70,8 +62,7 @@ public class MonsterManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Event???
-        if (Time.realtimeSinceStartup - lastSpawnTime > spawn.SpawnDuration) Spawnf();
+        if (Time.realtimeSinceStartup - lastSpawnTime > spawn.SpawnDuration) Spawnf(Random.Range(0, monsters.Length));
 
     }
 }
