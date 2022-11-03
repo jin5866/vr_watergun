@@ -24,7 +24,7 @@ public class MonsterManager : MonoBehaviour
 
 
     public Dictionary<DamageType, Material> monsterMaterials = new Dictionary<DamageType, Material>();
-    public Vector3 PlayerPosition { get => player.transform.position;}
+    public Vector3 PlayerPosition { get => player.transform.position; }
 
     float lastSpawnTime = -100;
 
@@ -41,7 +41,7 @@ public class MonsterManager : MonoBehaviour
         // Copilot is God.
         if (!monster) Debug.LogError("Please attach Monster Prefab.");
         if (!player) Debug.LogError("Please attach Player.");
-        if(!waterMaterial) Debug.LogError("Please attach Water Material.");
+        if (!waterMaterial) Debug.LogError("Please attach Water Material.");
         if (!fireMaterial) Debug.LogError("Please attach Fire Material.");
         monsterMaterials[DamageType.Water] = waterMaterial;
         monsterMaterials[DamageType.Fire] = fireMaterial;
@@ -54,11 +54,14 @@ public class MonsterManager : MonoBehaviour
     void Spawnf()
     {
         float distance = Random.Range(0, spawn.SpawnDistance);
+        /*
         Vector3 direction = Quaternion.Euler(RandomVector() * 90) * Vector3.Normalize(RandomVector());
         Vector3 position = spawn.SpawnCenter[0].position;       //TBD
         Quaternion rotationObject = Quaternion.Euler(RandomVector() * 90);
         Quaternion rotationPosition = Quaternion.Euler(RandomVector() * 90);
         GameObject gameObject = Instantiate(monster, rotationPosition * (position + distance * direction), rotationObject, transform);
+        */
+        GameObject gameObject = Instantiate(monster, spawn.SpawnCenter[Random.Range(0, 2)].position, Quaternion.identity, transform);
         gameObject.GetComponent<MonsterBehaviour>().Initialize(health, speed);
         gameObject.SetActive(true);
         lastSpawnTime = Time.realtimeSinceStartup;

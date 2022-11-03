@@ -33,12 +33,12 @@ public class ReadOnlyDrawer : PropertyDrawer
 
 public class MonsterBehaviour : MonoBehaviour
 {
-    static int defaultHealth = 10;
+    static float defaultHealth = 10;
     static float defaultSpeed = 3f;
 
 
     [ReadOnly, SerializeField]
-    int health = defaultHealth;
+    float health = defaultHealth;
     [SerializeField]
     bool isFollowingPlayer = true;
     [SerializeField]
@@ -46,9 +46,11 @@ public class MonsterBehaviour : MonoBehaviour
     public MonsterManager manager;
     [ReadOnly, SerializeField]
     DamageType damageType;
+    float lastAttackTime = -100;
+    float duration = 0.5f;
 
 
-    public void Damage(int value)
+    public void Damage(float value)
     {
         health -= value;
         if (health < 0)
@@ -79,12 +81,12 @@ public class MonsterBehaviour : MonoBehaviour
         if (collision.gameObject.name == "Ball Collider(Clone)" && damageType == DamageType.Water)
         {
             Debug.Log("Water Monster is hitted by Water.");
-            Damage(1);
+            Damage(0.5f);
         }
         else if (collision.gameObject.name == "Fire Attack Range" && damageType == DamageType.Fire)
         {
             Debug.Log("Fire Monster is hitted by Fire.");
-            Damage(2);
+            Damage(0.2f);
         }
         else if (collision.gameObject.name == "Player")
         {
@@ -93,12 +95,12 @@ public class MonsterBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void OntriggerStay(Collider collision)
+    void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.name == "Fire Attack Range" && damageType == DamageType.Fire)
         {
             Debug.Log("Fire Monster is still hitted by Fire.");
-            Damage(2);
+            Damage(0.05f);
         }
     }
 
