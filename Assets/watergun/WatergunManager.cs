@@ -30,7 +30,7 @@ public class WatergunManager : MonoBehaviour
         float x = transform.localScale.x;
         float y = transform.localScale.y;
         float z = transform.localScale.z;
-        Vector3 a = new(Random.Range(-x,x)/2, Random.Range(-y, y) / 2, Random.Range(-z, z) / 2);
+        Vector3 a = new(Random.Range(-x, x) / 2, Random.Range(-y, y) / 2, Random.Range(-z, z) / 2);
         a = transform.rotation * a;
         return a;
     }
@@ -47,6 +47,14 @@ public class WatergunManager : MonoBehaviour
         gameObject.transform.position = transform.position + Location();
         rigidbody.velocity = this.gameObject.transform.rotation * OriginVelocityNormal * ballSpeed;
         lastBallCreationTime = Time.realtimeSinceStartup;
+    }
+    public void Fire()
+    {
+        FireWater();
+    }
+    public void StopFire()
+    {
+        StopWater();
     }
     public void FireWater()
     {
@@ -74,6 +82,6 @@ public class WatergunManager : MonoBehaviour
             if (Input.GetButtonDown("Fire1")) FireWater();
             if (Input.GetButtonUp("Fire1")) StopWater();
         }
-        
+
     }
 }

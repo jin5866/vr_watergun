@@ -17,13 +17,16 @@ public class FiregunManager : MonoBehaviour
         particleSystem1 = flameThrower.GetComponent<ParticleSystem>();
         StopFire();
     }
-
-    void FireFire()
+    public void Fire()
+    {
+        FireFire();
+    }
+    public void FireFire()
     {
         particleSystem1.Play();
         attackRange.SetActive(true);
     }
-    void StopFire()
+    public void StopFire()
     {
         particleSystem1.Stop();
         attackRange.SetActive(false);
