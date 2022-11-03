@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, Timer
 {
     // Start is called before the first frame update
 
@@ -61,6 +61,11 @@ public class GameManager : MonoBehaviour
         //Debug.Log("GameEnd gm");
 
         SceneManager.LoadScene(EndSceneName);
+    }
+
+    public float GetRemainTime()
+    {
+        return _remainTime;
     }
 
     public float RemainTime
