@@ -17,13 +17,16 @@ public class FiregunManager : MonoBehaviour
         particleSystem1 = flameThrower.GetComponent<ParticleSystem>();
         StopFire();
     }
-
-    void FireFire()
+    public void Fire()
+    {
+        FireFire();
+    }
+    public void FireFire()
     {
         particleSystem1.Play();
         attackRange.SetActive(true);
     }
-    void StopFire()
+    public void StopFire()
     {
         particleSystem1.Stop();
         attackRange.SetActive(false);
@@ -32,8 +35,8 @@ public class FiregunManager : MonoBehaviour
     {
         if (!mouseEvent) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) FireFire();
-        if (Input.GetKeyUp(KeyCode.Mouse0)) StopFire();
+        //if (Input.GetKeyDown(KeyCode.Mouse0)) FireFire();
+        //if (Input.GetKeyUp(KeyCode.Mouse0)) StopFire();
 
 
     }

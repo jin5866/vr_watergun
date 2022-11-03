@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, Timer
 {
     // Start is called before the first frame update
 
     [SerializeField]
     private string EndSceneName = "EndScene";
-
+    [SerializeField]
     private float _gameTime = 5;
     private float _remainTime = 5;
 
@@ -61,6 +61,12 @@ public class GameManager : MonoBehaviour
         //Debug.Log("GameEnd gm");
 
         SceneManager.LoadScene(EndSceneName);
+        Destroy(FindObjectOfType<PlayerState>().gameObject);
+    }
+
+    public float GetRemainTime()
+    {
+        return _remainTime;
     }
 
     public float RemainTime

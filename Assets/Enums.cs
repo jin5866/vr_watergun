@@ -14,3 +14,9 @@ public enum DamageType
     Water,
     Fire
 }
+
+public enum GameState
+{
+    InGame,
+    InMenu
+}

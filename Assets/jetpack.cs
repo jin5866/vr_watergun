@@ -136,4 +136,10 @@ public class jetpack : MonoBehaviour
             _hovering = value;
         }
     }
+
+    public void Reset()
+    {
+        accOfBooster = normalmodeAcc;
+        rigidbody.velocity = Vector3.zero;
+    }
 }
