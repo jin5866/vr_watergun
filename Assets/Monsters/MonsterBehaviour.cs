@@ -75,25 +75,32 @@ public class MonsterBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
+
+        GameObject rootPa = collision.transform.root.gameObject;
         //This is Hard Coding. -Kim
         //Debug.Log("Monster is hitted by Collider.");
-        //Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.name == "Ball Collider(Clone)" && damageType == DamageType.Water)
+        if(rootPa == manager.Player)
         {
-            Debug.Log("Water Monster is hitted by Water.");
-            Damage(0.5f);
+            Debug.Log(collision.gameObject.name);
+
+            if(collision.gameObject.tag == "Fire")
+            {
+                Debug.Log("Fire Monster is hitted by Fire.");
+                Damage(30f);
+            }
+            else if(collision.gameObject.tag == "Water")
+            {
+                Debug.Log("Water Monster is hitted by Water.");
+                Damage(5f);
+            }
+            else
+            {
+                Debug.Log("Monster is hitted by Player.");
+                rootPa.GetComponent<PlayerState>().Damage(1, damageType);
+                Destroy(gameObject);
+            }
         }
-        else if (collision.gameObject.name == "Fire Attack Range" && damageType == DamageType.Fire)
-        {
-            Debug.Log("Fire Monster is hitted by Fire.");
-            Damage(0.2f);
-        }
-        else if (collision.gameObject.name == "Player")
-        {
-            Debug.Log("Monster is hitted by Player.");
-            collision.GetComponent<PlayerState>().Damage(1,damageType);
-            Destroy(gameObject);
-        }
+        
     }
     void OnTriggerStay(Collider collision)
     {
@@ -113,8 +120,8 @@ public class MonsterBehaviour : MonoBehaviour
             Debug.Log("Can't find MonsterManager. Destroy it.");
             Destroy(this);
         }
-        damageType = (DamageType)Random.Range(0, 2);
-        SetMaterial();
+        //damageType = (DamageType)Random.Range(0, 2);
+        //SetMaterial();
 
     }
     void SetMaterial()

@@ -35,8 +35,8 @@ public class FiregunManager : MonoBehaviour
     {
         if (!mouseEvent) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) FireFire();
-        if (Input.GetKeyUp(KeyCode.Mouse0)) StopFire();
+        //if (Input.GetKeyDown(KeyCode.Mouse0)) FireFire();
+        //if (Input.GetKeyUp(KeyCode.Mouse0)) StopFire();
 
 
     }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour, Timer
 
     [SerializeField]
     private string EndSceneName = "EndScene";
-
+    [SerializeField]
     private float _gameTime = 5;
     private float _remainTime = 5;
 

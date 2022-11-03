@@ -32,58 +32,58 @@ public class SimplePlayerControl : MonoBehaviour
     FiregunManager firegunManager;
     [SerializeField]
     bool mouseEvent = true;
+
+    bool lastleft = false;
     // Start is called before the first frame update
     void Start()
     {
         if(!WatergunManager) Debug.LogError("Please attach WatergunManager.");
         if(!firegunManager) Debug.LogError("Please attach FiregunManager.");
 
-        Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) ;
+        //Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) ;
 
         
-        GameObject watergun = Instantiate(watergunPrefab, RightPosition.transform);
-        GameObject firegun = Instantiate(firegunPrefab, leftPosition.transform);
-        WatergunManager = watergun.GetComponent<WatergunManager>();
-        firegunManager = firegun.GetComponent<FiregunManager>();
+        //GameObject watergun = Instantiate(watergunPrefab, RightPosition.transform);
+        //GameObject firegun = Instantiate(firegunPrefab, leftPosition.transform);
+        //WatergunManager = watergun.GetComponent<WatergunManager>();
+        //firegunManager = firegun.GetComponent<FiregunManager>();
 
-        righthand.AttachObject(watergun, righthand.GetGrabStarting(), attachmentFlags);
-        lefthand.AttachObject(firegun, lefthand.GetGrabStarting(), attachmentFlags);
+        //righthand.AttachObject(watergun, righthand.GetGrabStarting(), attachmentFlags);
+        //lefthand.AttachObject(firegun, lefthand.GetGrabStarting(), attachmentFlags);
+
+        //righthand.currentAttachedTeleportManager.teleportAllowed = true;
+        //lefthand.currentAttachedTeleportManager.teleportAllowed = true;
 
         lefthand.SetVisibility(false);
         righthand.SetVisibility(false);
+        //firegunManager.Fire();
+        //WatergunManager.Fire();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(mouseEvent)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                firegunManager.Fire();
-            }
-            else
-            {
-                firegunManager.StopFire();
-            }
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                WatergunManager.Fire();
-            }
-            else
-            {
-                WatergunManager.StopFire();
-            }
-        }
-        if (rightfire.GetState(SteamVR_Input_Sources.Any))
+        //firegunManager.Fire();
+        //WatergunManager.Fire();
+
+        bool leftfireinput = leftfire.GetState(SteamVR_Input_Sources.Any);
+        bool rightfireinput = rightfire.GetState(SteamVR_Input_Sources.Any);
+
+        //Debug.Log(leftfireinput);
+
+        if(!lastleft && leftfireinput)
         {
             firegunManager.Fire();
+
         }
-        else
+        else if(lastleft && !leftfireinput)
         {
             firegunManager.StopFire();
         }
-        if (rightfire.GetState(SteamVR_Input_Sources.Any))
+
+        lastleft = leftfireinput;
+
+        if (rightfireinput)
         {
             WatergunManager.Fire();
         }

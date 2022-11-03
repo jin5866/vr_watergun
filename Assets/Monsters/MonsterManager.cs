@@ -36,7 +36,7 @@ public class MonsterManager : MonoBehaviour
     {
         // Copilot is God.
         if (monsters.Length == 0) Debug.LogError("Please attach Monster Prefab.");
-        if (!player) Debug.LogError("Please attach Player.");
+        if (!player) player = FindObjectOfType<PlayerState>().gameObject;
     }
 
     Vector3 RandomVector()
@@ -65,6 +65,8 @@ public class MonsterManager : MonoBehaviour
         if (Time.realtimeSinceStartup - lastSpawnTime > spawn.SpawnDuration) Spawnf(Random.Range(0, monsters.Length));
 
     }
+
+    public GameObject Player { get => player; }
 }
 
 [System.Serializable]

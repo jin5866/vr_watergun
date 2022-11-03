@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3145760952683365527}
   - component: {fileID: 9175008420141630618}
   - component: {fileID: 7572379933512472292}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 311121550217665814}
   - component: {fileID: 4649105205005766452}
   - component: {fileID: 4975755518427845394}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243541577766056408}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1.7935836
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 5125343069257343381}
   - component: {fileID: 5509463109720249292}
   - component: {fileID: 5016087659044023433}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 930361551709601339}
   - component: {fileID: 4792260140023710889}
   - component: {fileID: 3726863510644256759}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 8366212761607263605}
   - component: {fileID: 4765885881516740540}
   - component: {fileID: 9039707257714263165}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 8223900615138688924}
   - component: {fileID: 2947048436819508336}
   - component: {fileID: 1690295254999397945}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LefFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 4030919429247942117}
   - component: {fileID: 7226090526453137252}
   - component: {fileID: 5931740863311297881}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chicken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2303657888533371384}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5845254
   m_Height: 1.8573307
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 8513993264672494570}
   - component: {fileID: 6598935700652807275}
   - component: {fileID: 6186822008069048452}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 3534769845442214131}
   - component: {fileID: 5405640930088857854}
   - component: {fileID: 6646917993926945830}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 8348217683260827479}
   - component: {fileID: 4563592712305009350}
   - component: {fileID: 3594408261494469105}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -815,7 +815,7 @@ GameObject:
   - component: {fileID: 292896317380021366}
   - component: {fileID: 7538049639905099932}
   - component: {fileID: 955676953458460034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Penguin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +848,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3974644595079733784}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.7807697
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 2038978130683772864}
   - component: {fileID: 5639804076864979711}
   - component: {fileID: 1144100314181094191}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 2149469289178986158}
   - component: {fileID: 5779114356398791846}
   - component: {fileID: 7493944126685574829}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1000,7 +1000,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4129385187966945252}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.43410516
   m_Height: 1.9413543
@@ -1034,7 +1034,7 @@ GameObject:
   - component: {fileID: 4739588879129697562}
   - component: {fileID: 7023896420175956853}
   - component: {fileID: 376783759297451365}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1117,7 +1117,7 @@ GameObject:
   - component: {fileID: 6278877764138079804}
   - component: {fileID: 6101167935585395734}
   - component: {fileID: 3786979856259498950}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1200,7 +1200,7 @@ GameObject:
   - component: {fileID: 2336773348212579094}
   - component: {fileID: 3302341029015484690}
   - component: {fileID: 1594057592739992593}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegBL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1283,7 +1283,7 @@ GameObject:
   - component: {fileID: 2749951052434972210}
   - component: {fileID: 2484464068456518650}
   - component: {fileID: 6457161997786160943}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WingR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 2159620859025689654}
   - component: {fileID: 6263671335745006507}
   - component: {fileID: 7303724645400316927}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1485,7 +1485,7 @@ GameObject:
   - component: {fileID: 4391566424075602294}
   - component: {fileID: 345910014804693506}
   - component: {fileID: 6286723953304570120}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1568,7 +1568,7 @@ GameObject:
   - component: {fileID: 166514077859756867}
   - component: {fileID: 6888517690741670503}
   - component: {fileID: 4542657798615810866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1708,7 +1708,7 @@ GameObject:
   - component: {fileID: 5305183392238668365}
   - component: {fileID: 1325847046635537209}
   - component: {fileID: 8538545087598534500}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1791,7 +1791,7 @@ GameObject:
   - component: {fileID: 6939631058713278452}
   - component: {fileID: 1689853080426843486}
   - component: {fileID: 8144363739332947624}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegFR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1874,7 +1874,7 @@ GameObject:
   - component: {fileID: 1207165377991209863}
   - component: {fileID: 8151150751357363559}
   - component: {fileID: 6931499287420254890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegBR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1957,7 +1957,7 @@ GameObject:
   - component: {fileID: 5239834930018266808}
   - component: {fileID: 3421249131158296520}
   - component: {fileID: 4296156352318989141}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WingL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2040,7 +2040,7 @@ GameObject:
   - component: {fileID: 6526247850206085444}
   - component: {fileID: 1586532862773466304}
   - component: {fileID: 5422988776410775874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LegFL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2123,7 +2123,7 @@ GameObject:
   - component: {fileID: 4628960633829368096}
   - component: {fileID: 1829710821576114982}
   - component: {fileID: 7193736507829606342}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

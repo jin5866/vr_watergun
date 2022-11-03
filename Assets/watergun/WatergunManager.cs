@@ -44,7 +44,7 @@ public class WatergunManager : MonoBehaviour
             Debug.LogError("GameObject and Collider not be found.");
             return;
         }
-        gameObject.transform.position = transform.position + Location();
+        gameObject.transform.position = gameObject.transform.position + Location();
         rigidbody.velocity = this.gameObject.transform.rotation * OriginVelocityNormal * ballSpeed;
         lastBallCreationTime = Time.realtimeSinceStartup;
     }
@@ -79,8 +79,8 @@ public class WatergunManager : MonoBehaviour
         // If there's mouse event, please be turn off feature.
         if (implementMouseevent)
         {
-            if (Input.GetButtonDown("Fire1")) FireWater();
-            if (Input.GetButtonUp("Fire1")) StopWater();
+            //if (Input.GetButtonDown("Fire1")) FireWater();
+            //if (Input.GetButtonUp("Fire1")) StopWater();
         }
 
     }
