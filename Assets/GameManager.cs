@@ -16,11 +16,14 @@ public class GameManager : MonoBehaviour
 
     private bool isOnGame = true;
 
+    private int _score;
+
     public event EventHandler GameEndEvent;
     private void Awake()
     {
         isOnGame = true;
         _remainTime = _gameTime;
+        _score = 0;
     }
 
     // Update is called once per frame
@@ -34,6 +37,16 @@ public class GameManager : MonoBehaviour
         {
             GameEnd();
         }
+    }
+
+    public void OnMonsterDie(int score)
+    {
+        _score += score;
+    }
+
+    public void OnHealthIsZero(int playerid)
+    {
+        GameEnd();
     }
 
     private void GameEnd()
@@ -55,6 +68,14 @@ public class GameManager : MonoBehaviour
         get
         {
             return _remainTime;
+        }
+    }
+
+    public int Score
+    {
+        get
+        {
+            return _score;
         }
     }
 

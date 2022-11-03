@@ -16,6 +16,10 @@ public class HUD : MonoBehaviour
     [SerializeField]
     private HUDGaugeBar healthBar;
 
+    [SerializeField]
+    private TMP_Text scoreText;
+    [SerializeField]
+    private string scoreFormatString = "{0}";
 
     private float _health = 0.5f;
     private float _maxhealth = 1.0f;
@@ -27,12 +31,17 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RemainTime = 10.0f;
+        scoreText.text = "";
+        //RemainTime = 10.0f;
         gameManager = FindObjectOfType<GameManager>();
 
         if (gameManager)
         {
             gameManager.GameEndEvent += new System.EventHandler(OnGameEnd);
+        }
+        else
+        {
+            Debug.LogError("No GameManager!");
         }
     }
 
@@ -46,6 +55,12 @@ public class HUD : MonoBehaviour
     private void OnGameEnd(object sender, System.EventArgs e)
     {
         //Debug.Log("GameEnd");
+        //Print Score On Canvas
+        if (gameManager)
+        {
+            scoreText.text = string.Format(scoreFormatString, gameManager.Score);
+        }
+        
     }
 
     public float Health 
