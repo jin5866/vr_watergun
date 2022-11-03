@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour
     private float _maxboost = 1.0f;
 
     private GameManager gameManager;
-
+    private Timer timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,12 +38,13 @@ public class HUD : MonoBehaviour
         if (gameManager)
         {
             gameManager.GameEndEvent += new System.EventHandler(OnGameEnd);
+            SetTimer(gameManager);
         }
         else
         {
             Debug.LogError("No GameManager!");
 
-            SetTimerTextVisible(false);
+            SetTimer(null);
         }
 
     }
@@ -51,9 +52,9 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager) 
+        if (timer != null) 
         {
-            RemainTime = gameManager.RemainTime;
+            RemainTime = timer.GetRemainTime();
         }
             
     }
@@ -126,5 +127,21 @@ public class HUD : MonoBehaviour
             timeText.text = string.Format(timeFormatString, value);
         }
     }
+
+    public void SetTimer(Timer timer)
+    {
+        this.timer = timer;
+
+        if(timer ==null)
+        {
+            SetTimerTextVisible(false);
+        }
+        else
+        {
+            SetTimerTextVisible(true);
+        }
+    }
+
+
     
 }

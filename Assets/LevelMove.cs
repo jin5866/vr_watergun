@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelMove : MonoBehaviour
+public class LevelMove : MonoBehaviour, Timer
 {
     // Start is called before the first frame update
     [SerializeField]
@@ -29,11 +29,14 @@ public class LevelMove : MonoBehaviour
     float RemainTime = 0.0f;
     bool IsEnter = false;
     private GameObject player;
+
+    private HUD hud;
     void Start()
     {
         player = FindObjectOfType<PlayerState>().gameObject;
         SetParticleColor(false);
         RemainTime = WaitTime;
+        hud = FindObjectOfType<HUD>();
     }
 
     // Update is called once per frame
@@ -65,6 +68,8 @@ public class LevelMove : MonoBehaviour
             SetParticleColor(true);
             RemainTime = WaitTime;
             IsEnter = true;
+
+            if (hud) hud.SetTimer(this);
         }
 
 
@@ -79,6 +84,8 @@ public class LevelMove : MonoBehaviour
             SetParticleColor(false);
             RemainTime = WaitTime;
             IsEnter = false;
+
+            if (hud) hud.SetTimer(null);
         }
     }
 
@@ -102,5 +109,10 @@ public class LevelMove : MonoBehaviour
     private void ChangeLevel()
     {
         SceneManager.LoadScene(LevelName);
+    }
+
+    public float GetRemainTime()
+    {
+        return RemainTime;
     }
 }
