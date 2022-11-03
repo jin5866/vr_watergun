@@ -8,6 +8,8 @@ public class PlayerState : MonoBehaviour
     private HUD hud;
     [SerializeField]
     private float MaxHealth;
+    [SerializeField]
+    private GameState gameState = GameState.InGame;
 
 
     private GameManager gameManager;
@@ -15,6 +17,9 @@ public class PlayerState : MonoBehaviour
     private float _health;
 
     private int _id = 0;
+
+    private Vector3 startPosition;
+    private Quaternion startRotation;
 
     private void Start()
     {
@@ -27,9 +32,20 @@ public class PlayerState : MonoBehaviour
         {
             gameManager.GameEndEvent += new System.EventHandler(OnGameEnd);
         }
+
+        if(gameState == GameState.InMenu)
+        {
+            hud.SetTimerTextVisible(false);
+        }
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
-
+    private void Update()
+    {
+        Health -= Time.deltaTime * 30;
+    }
 
     public float Health
     {
@@ -63,10 +79,31 @@ public class PlayerState : MonoBehaviour
         {
             gameManager.OnHealthIsZero(_id);
         }
+
+        if(gameState == GameState.InMenu)
+        {
+            Debug.Log("Die In Menu");
+            PlayerReset();
+        }
     }
 
     private void OnGameEnd(object sender, System.EventArgs e)
     {
 
+    }
+
+    private void PlayerReset()
+    {
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+
+        Health = MaxHealth;
+
+        jetpack jp = GetComponent<jetpack>();
+
+        if (jp)
+        {
+            jp.Reset();
+        }
     }
 }

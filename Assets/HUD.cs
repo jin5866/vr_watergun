@@ -42,13 +42,20 @@ public class HUD : MonoBehaviour
         else
         {
             Debug.LogError("No GameManager!");
+
+            SetTimerTextVisible(false);
         }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        RemainTime = gameManager.RemainTime;
+        if (gameManager) 
+        {
+            RemainTime = gameManager.RemainTime;
+        }
+            
     }
 
 
@@ -61,6 +68,12 @@ public class HUD : MonoBehaviour
             scoreText.text = string.Format(scoreFormatString, gameManager.Score);
         }
         
+    }
+
+    public void SetTimerTextVisible(bool val)
+    {
+
+        timeText.gameObject.SetActive(val);
     }
 
     public float Health 
